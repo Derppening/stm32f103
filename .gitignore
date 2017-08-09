@@ -1,0 +1,65 @@
+# User-specific uVision files
+*.opt
+*.uvopt
+*.uvoptx
+*.uvgui
+*.uvguix.*
+
+# Listing files
+*.cod
+*.htm
+*.i
+*.lst
+*.map
+*.m51
+*.m66
+*.scr
+
+# Object and HEX files
+*.axf
+*.b[0-3][0-9]
+*.hex
+*.d
+*.crf
+*.elf
+*.hex
+*.h86
+*.lib
+*.obj
+*.o
+*.sbr
+
+# Build files
+*.bat
+*._ia
+*.__i
+*._ii
+
+# Debugger files
+*.ini
+
+# Other files
+*.build_log.htm
+*.cdb
+*.dep
+*.ic
+*.lin
+*.lnp
+*.orc
+*.pack
+*.pdsc
+*.plg
+*.sct
+*.sfd
+*.sfr
+
+# Miscellaneous
+*.tra
+*.bin
+*.fed
+*.l1p
+*.l2p
+*.iex
+
+#flash
+!flash.bat

@@ -1,0 +1,3 @@
+#include "uart_config.h"
+
+UART COM1(USART1, RCC_APB2Periph_USART1, &PA9, &PA10, RCC_APB2Periph_GPIOA, RCC_APB2Periph_GPIOA, USART1_IRQn);
