@@ -1,13 +1,13 @@
 #ifndef _TICKS_H
 #define _TICKS_H
 
-#include "tim.h"
+#include "stm32f10x_tim.h"
 
 namespace ticks
 {
 
 	void init();
-	void interrupt_handler();
+	uint32_t getTicks();
 
 };
 

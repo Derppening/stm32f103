@@ -622,11 +622,6 @@
               <FilePath>.\src\core\gpio.cpp</FilePath>
             </File>
             <File>
-              <FileName>tim.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\core\tim.cpp</FilePath>
-            </File>
-            <File>
               <FileName>uart.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\core\uart.cpp</FilePath>
