@@ -3,6 +3,6 @@
 
 #include "gpio_config.h"
 #include "uart_config.h"
-#include "ticks.h"
+#include "led_config.h"
 
 #endif

@@ -9,9 +9,11 @@ GPIO::GPIO(GPIO_TypeDef* Port, uint16_t Pin)
 
 void GPIO::init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed)
 {
+	this->rcc(ENABLE);
 	this->GPIO_InitStructure.GPIO_Mode = Mode;
 	this->GPIO_InitStructure.GPIO_Speed = Speed;
 	GPIO_Init(this->Port, &(this->GPIO_InitStructure));
+	GPIO_ResetBits(this->Port, this->GPIO_InitStructure.GPIO_Pin);
 }
 
 void GPIO::rcc(FunctionalState state)
@@ -44,6 +46,16 @@ void GPIO::rcc(FunctionalState state)
 	{
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
 	}
+}
+
+void GPIO::set()
+{
+	GPIO_SetBits(this->Port, this->GPIO_InitStructure.GPIO_Pin);
+}
+
+void GPIO::reset()
+{
+	GPIO_ResetBits(this->Port, this->GPIO_InitStructure.GPIO_Pin);
 }
 
 void GPIO::write(BitAction BitVal)

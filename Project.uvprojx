@@ -129,8 +129,8 @@
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>0</UseTargetDll>
-            <UseExternalTool>1</UseExternalTool>
+            <UseTargetDll>1</UseTargetDll>
+            <UseExternalTool>0</UseExternalTool>
             <RunIndependent>1</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
@@ -641,15 +641,20 @@
               <FileType>8</FileType>
               <FilePath>.\src\config\uart_config.cpp</FilePath>
             </File>
+            <File>
+              <FileName>led_config.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\config\led_config.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>lib</GroupName>
           <Files>
             <File>
-              <FileName>ticks.cpp</FileName>
+              <FileName>led.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\lib\ticks.cpp</FilePath>
+              <FilePath>.\src\lib\led.cpp</FilePath>
             </File>
           </Files>
         </Group>

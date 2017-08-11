@@ -15,6 +15,8 @@ class GPIO
 	GPIO(GPIO_TypeDef* Port, uint16_t Pin);
 	void init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed);
 	void rcc(FunctionalState state);
+	void set();
+	void reset();
 	void write(BitAction BitVal);
 	uint8_t read();
 	uint16_t getPinSource();

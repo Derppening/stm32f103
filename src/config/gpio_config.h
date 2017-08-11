@@ -5,5 +5,8 @@
 
 extern GPIO PA9;
 extern GPIO PA10;
+extern GPIO PA15;
+extern GPIO PB3;
+extern GPIO PB4;
 
 #endif
