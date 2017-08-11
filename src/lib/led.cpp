@@ -7,8 +7,8 @@ LED::LED(GPIO* gpio)
 
 void LED::init()
 {
-	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
 	this->gpio->init(GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
+	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
 }
 
 void LED::on()

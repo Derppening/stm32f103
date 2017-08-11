@@ -20,31 +20,31 @@ void GPIO::rcc(FunctionalState state)
 {
 	if (this->Port == GPIOA)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, state);
 	}
 	else if (this->Port == GPIOB)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, state);
 	}
 	else if (this->Port == GPIOC)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_AFIO, state);
 	}
 	else if (this->Port == GPIOD)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | RCC_APB2Periph_AFIO, state);
 	}
 	else if (this->Port == GPIOE)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE | RCC_APB2Periph_AFIO, state);
 	}
 	else if (this->Port == GPIOF)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF | RCC_APB2Periph_AFIO, state);
 	}
 	else if (this->Port == GPIOG)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOG | RCC_APB2Periph_AFIO, state);
 	}
 }
 
