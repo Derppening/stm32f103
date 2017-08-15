@@ -15,9 +15,8 @@ UART::UART(USART_TypeDef* USART, uint32_t rcc, GPIO* TX, GPIO* RX, uint32_t TX_P
 void UART::init(uint32_t BaudRate)
 {
 	USART_InitTypeDef USART_InitStructure;
-	this->TX->rcc(ENABLE);
-	this->RX->rcc(ENABLE);
-	RCC_APB2PeriphClockCmd(this->TX_Peripheral | this->RX_Peripheral | RCC_APB2Periph_AFIO, ENABLE);
+	this->TX->init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
+	this->RX->init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
 	if (this->USART == USART1)
 	{
 		RCC_APB2PeriphClockCmd(this->rcc, ENABLE);
@@ -26,8 +25,6 @@ void UART::init(uint32_t BaudRate)
 	{
 		RCC_APB1PeriphClockCmd(this->rcc, ENABLE);
 	}
-	this->TX->init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
-	this->RX->init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
 	USART_InitStructure.USART_BaudRate = BaudRate;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
@@ -70,5 +67,3 @@ void UART::tx(const char* data, ...)
 		ptr++;
 	}
 }
-
-

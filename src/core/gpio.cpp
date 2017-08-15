@@ -9,7 +9,7 @@ GPIO::GPIO(GPIO_TypeDef* Port, uint16_t Pin)
 
 void GPIO::init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed, uint32_t rcc)
 {
-	this->rcc(ENABLE);
+	this->rcc(ENABLE, rcc);
 	this->GPIO_InitStructure.GPIO_Mode = Mode;
 	this->GPIO_InitStructure.GPIO_Speed = Speed;
 	GPIO_Init(this->Port, &(this->GPIO_InitStructure));
