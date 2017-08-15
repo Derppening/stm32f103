@@ -6,4 +6,9 @@
 
 extern UART COM1;
 
+extern "C"
+{
+	void USART1_IRQHandler();
+}
+
 #endif

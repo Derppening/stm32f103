@@ -16,7 +16,7 @@ void UART::init(uint32_t BaudRate)
 {
 	USART_InitTypeDef USART_InitStructure;
 	this->TX->init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
-	this->RX->init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
+	this->RX->init(GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
 	if (this->USART == USART1)
 	{
 		RCC_APB2PeriphClockCmd(this->rcc, ENABLE);
@@ -38,12 +38,12 @@ void UART::init(uint32_t BaudRate)
 void UART::interrupt(void (*callback)(const char byte))
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
+	USART_ITConfig(this->USART, USART_IT_RXNE, ENABLE);
 	NVIC_InitStructure.NVIC_IRQChannel = this->IRQ;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
-	USART_ITConfig(this->USART, USART_IT_RXNE,ENABLE);
 	this->listener = callback;
 }
 
@@ -61,7 +61,7 @@ void UART::tx(const char* data, ...)
 	va_start(args, data);
 	vsprintf(buffer, data, args);
 	va_end(args);
-	while (*ptr)
+	while (*ptr != '\0')
 	{
 		this->tx_byte(*ptr);
 		ptr++;
