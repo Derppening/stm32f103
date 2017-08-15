@@ -626,6 +626,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\core\uart.cpp</FilePath>
             </File>
+            <File>
+              <FileName>timer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\core\timer.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -646,6 +651,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\config\led_config.cpp</FilePath>
             </File>
+            <File>
+              <FileName>timer_config.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\config\timer_config.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -655,6 +665,11 @@
               <FileName>led.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\lib\led.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ticks.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\lib\ticks.cpp</FilePath>
             </File>
           </Files>
         </Group>
