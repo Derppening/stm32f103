@@ -7,7 +7,7 @@ GPIO::GPIO(GPIO_TypeDef* Port, uint16_t Pin)
 	this->GPIO_InitStructure.GPIO_Pin = Pin;
 }
 
-void GPIO::init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed)
+void GPIO::init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed, uint32_t rcc)
 {
 	this->rcc(ENABLE);
 	this->GPIO_InitStructure.GPIO_Mode = Mode;
@@ -16,35 +16,35 @@ void GPIO::init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed)
 	GPIO_ResetBits(this->Port, this->GPIO_InitStructure.GPIO_Pin);
 }
 
-void GPIO::rcc(FunctionalState state)
+void GPIO::rcc(FunctionalState state, uint32_t rcc)
 {
 	if (this->Port == GPIOA)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | rcc, state);
 	}
 	else if (this->Port == GPIOB)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | rcc, state);
 	}
 	else if (this->Port == GPIOC)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC | rcc, state);
 	}
 	else if (this->Port == GPIOD)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | rcc, state);
 	}
 	else if (this->Port == GPIOE)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE | rcc, state);
 	}
 	else if (this->Port == GPIOF)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF | rcc, state);
 	}
 	else if (this->Port == GPIOG)
 	{
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOG | RCC_APB2Periph_AFIO, state);
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOG | rcc, state);
 	}
 }
 

@@ -13,8 +13,8 @@ class GPIO
 
 	public:
 	GPIO(GPIO_TypeDef* Port, uint16_t Pin);
-	void init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed);
-	void rcc(FunctionalState state);
+	void init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed, uint32_t rcc = 0);
+	void rcc(FunctionalState state, uint32_t rcc = 0);
 	void set();
 	void reset();
 	void write(BitAction BitVal);

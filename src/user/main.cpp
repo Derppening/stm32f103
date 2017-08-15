@@ -1,8 +1,14 @@
 #include "main.h"
 
+void COM1_interrupt_func(const char byte)
+{
+	COM1.tx("WTF\n\r");
+}
+
 int main()
 {
 	COM1.init(9600);
+	COM1.interrupt(&COM1_interrupt_func);
 	LED_A.init();
 	LED_B.init();
 	LED_C.init();

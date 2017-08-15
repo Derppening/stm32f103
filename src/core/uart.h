@@ -20,13 +20,13 @@ class UART
 	uint32_t TX_Peripheral;
 	uint32_t RX_Peripheral;
 	IRQn IRQ;
-	void (*listener)(const uint8_t byte);
 
 	public:
+	void (*listener)(const char byte);
 	UART(USART_TypeDef* USART, uint32_t rcc, GPIO* TX, GPIO* RX, uint32_t TX_Peripheral, uint32_t RX_Peripheral, IRQn IRQ);
 	void init(uint32_t BaudRate);
-	void interrupt(void (*callback)(const uint8_t byte));
-	void tx_byte(uint8_t byte);
+	void interrupt(void (*callback)(const char byte));
+	void tx_byte(char byte);
 	void tx(const char* data, ...);
 
 };
