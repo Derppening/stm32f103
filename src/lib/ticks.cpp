@@ -1,20 +1,20 @@
 #include "ticks.h"
 
-uint32_t counter;
-
-void handler()
-{
-	counter++;
-}
+volatile uint32_t counter;
 
 void ticks::init()
 {
-	counter = 0;
-	CLK2.init(71, 1000);
-	CLK2.interrupt(&handler);
+	RCC_ClocksTypeDef RCC_Clocks;
+	RCC_GetClocksFreq (&RCC_Clocks);
+	SysTick_Config (RCC_Clocks.HCLK_Frequency / 1000);
 }
 
 uint32_t ticks::getTicks()
 {
 	return counter;
+}
+
+void SysTick_Handler()
+{
+	counter++;
 }

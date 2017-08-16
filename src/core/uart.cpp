@@ -38,13 +38,13 @@ void UART::init(uint32_t BaudRate)
 void UART::interrupt(void (*callback)(const char byte))
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
+	this->listener = callback;
 	USART_ITConfig(this->USART, USART_IT_RXNE, ENABLE);
 	NVIC_InitStructure.NVIC_IRQChannel = this->IRQ;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
-	this->listener = callback;
 }
 
 void UART::tx_byte(char byte)
