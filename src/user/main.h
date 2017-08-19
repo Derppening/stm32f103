@@ -5,5 +5,6 @@
 #include "uart_config.h"
 #include "led_config.h"
 #include "ticks.h"
+#include "button_config.h"
 
 #endif

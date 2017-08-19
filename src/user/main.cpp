@@ -13,11 +13,14 @@ int main()
 	LED_A.init();
 	LED_B.init();
 	LED_C.init();
+	B1.init();
+	B2.init();
+	B3.init();
 	while (1)
 	{
 		LED_A.on();
 		LED_B.on();
 		LED_C.on();
-		COM1.tx("Hello World! %d\n\r", ticks::getTicks());
+		COM1.tx("%d: %d %d %d\n\r", ticks::get(), B1.read(), B2.read(), B3.read());
 	}
 }

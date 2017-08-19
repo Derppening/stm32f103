@@ -4,7 +4,7 @@ TIMER::TIMER(TIM_TypeDef* TIM, uint32_t rcc, IRQn IRQn)
 {
 	this->TIM = TIM;
 	this->rcc = rcc;
-	this->IRQ = IRQ;
+	this->IRQ = IRQn;
 	this->listener = 0;
 }
 
