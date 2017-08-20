@@ -20,3 +20,8 @@ void LED::off()
 {
 	this->gpio->reset();
 }
+
+void LED::toggle()
+{
+	this->gpio->toggle();
+}

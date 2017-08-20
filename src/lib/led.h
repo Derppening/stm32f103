@@ -14,6 +14,7 @@ class LED
 	void init();
 	void on();
 	void off();
+	void toggle();
 
 };
 

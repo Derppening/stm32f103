@@ -3,8 +3,8 @@
 
 #include "button.h"
 
-extern Button B1;
-extern Button B2;
-extern Button B3;
+extern Button BUTTON1;
+extern Button BUTTON2;
+extern Button BUTTON3;
 
 #endif

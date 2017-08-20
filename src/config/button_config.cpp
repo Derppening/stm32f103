@@ -1,5 +1,5 @@
 #include "button_config.h"
 
-Button B1(&PC13);
-Button B2(&PC14);
-Button B3(&PC15);
+Button BUTTON1(&PC13);
+Button BUTTON2(&PC14);
+Button BUTTON3(&PC15);

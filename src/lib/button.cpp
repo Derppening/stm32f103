@@ -12,5 +12,5 @@ void Button::init()
 
 uint8_t Button::read()
 {
-	return this->gpio->read();
+	return !this->gpio->read();
 }

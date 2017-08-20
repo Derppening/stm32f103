@@ -3,8 +3,8 @@
 
 #include "led.h"
 
-extern LED LED_A;
-extern LED LED_B;
-extern LED LED_C;
+extern LED LEDa;
+extern LED LEDb;
+extern LED LEDc;
 
 #endif

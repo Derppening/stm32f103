@@ -17,7 +17,8 @@ class GPIO
 	void rcc(FunctionalState state, uint32_t rcc = 0);
 	void set();
 	void reset();
-	void write(BitAction BitVal);
+	void toggle();
+	void write(bool state);
 	uint8_t read();
 	uint16_t getPinSource();
 
