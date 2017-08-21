@@ -18,6 +18,6 @@ int main()
 	LEDc.init();
 	while (1)
 	{
-		COM1.tx("%d (%d %d %d)\n\r", ticks::get(), BUTTON1.read(), BUTTON2.read(), BUTTON3.read());
+		COM1.tx("%d\n\r", ticks::get());
 	}
 }

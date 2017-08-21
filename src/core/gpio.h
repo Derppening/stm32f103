@@ -21,6 +21,8 @@ class GPIO
 	void write(bool state);
 	uint8_t read();
 	uint16_t getPinSource();
+	GPIO_TypeDef* getPort();
+	uint16_t getPin();
 
 };
 

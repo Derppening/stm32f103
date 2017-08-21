@@ -631,6 +631,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\core\timer.cpp</FilePath>
             </File>
+            <File>
+              <FileName>spi.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\core\spi.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
