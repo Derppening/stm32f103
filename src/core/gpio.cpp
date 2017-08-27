@@ -13,7 +13,6 @@ void GPIO::init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed, uint32_t rcc)
 	this->GPIO_InitStructure.GPIO_Mode = Mode;
 	this->GPIO_InitStructure.GPIO_Speed = Speed;
 	GPIO_Init(this->Port, &(this->GPIO_InitStructure));
-	this->reset();
 }
 
 void GPIO::rcc(FunctionalState state, uint32_t rcc)

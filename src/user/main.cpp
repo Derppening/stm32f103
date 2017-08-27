@@ -10,14 +10,38 @@ int main()
 	ticks::init();
 	COM1.init(9600);
 	COM1.interrupt(&COM1_interrupt_func);
-	BUTTON1.init();
-	BUTTON2.init();
-	BUTTON3.init();
 	LEDa.init();
 	LEDb.init();
 	LEDc.init();
+	BUTTON1.init();
+	BUTTON2.init();
+	BUTTON3.init();
 	while (1)
 	{
-		COM1.tx("%d\n\r", ticks::get());
+		COM1.tx("%d: %d %d %d\n\r", ticks::get(), BUTTON1.read(), BUTTON2.read(), BUTTON3.read());
+		if (BUTTON1.read())
+		{
+			LEDa.on();
+		}
+		else
+		{
+			LEDa.off();
+		}
+		if (BUTTON2.read())
+		{
+			LEDb.on();
+		}
+		else
+		{
+			LEDb.off();
+		}
+		if (BUTTON3.read())
+		{
+			LEDc.on();
+		}
+		else
+		{
+			LEDc.off();
+		}
 	}
 }
