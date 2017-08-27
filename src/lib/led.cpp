@@ -26,3 +26,8 @@ void LED::toggle()
 {
 	this->gpio->toggle();
 }
+
+void LED::set(bool state)
+{
+	this->gpio->write(state);
+}

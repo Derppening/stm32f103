@@ -19,29 +19,8 @@ int main()
 	while (1)
 	{
 		COM1.tx("%d: %d %d %d\n\r", ticks::get(), BUTTON1.read(), BUTTON2.read(), BUTTON3.read());
-		if (BUTTON1.read())
-		{
-			LEDa.on();
-		}
-		else
-		{
-			LEDa.off();
-		}
-		if (BUTTON2.read())
-		{
-			LEDb.on();
-		}
-		else
-		{
-			LEDb.off();
-		}
-		if (BUTTON3.read())
-		{
-			LEDc.on();
-		}
-		else
-		{
-			LEDc.off();
-		}
+		LEDa.set(BUTTON1.read());
+		LEDb.set(BUTTON2.read());
+		LEDc.set(BUTTON3.read());
 	}
 }
