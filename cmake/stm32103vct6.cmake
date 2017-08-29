@@ -1,0 +1,11 @@
+add_definitions(-DSTM32F10X_HD)
+
+set(COMMON_FLAGS "-DSTM32F103VCT6 -DSTM32F1 -mcpu=cortex-m3 -mthumb -msoft-float")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMMON_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMMON_FLAGS}")
+
+set(LINKER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/linker/STM32F103VCT6.ld")
+set(DEVICE_DEFS "-D_ROM=256K -D_RAM=48K -DSTM32F1 -D_ROM_OFF=0x08000000 -D_RAM_OFF=0x20000000")
+set(LINKER_FLAGS "${LINKER_FLAGS} -T${LINKER_FILE} ${DEVICE_DEFS} -lc -lnosys --specs=rdimon.specs -Wl,--gc-sections")
+
+list(APPEND SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_hd.s")

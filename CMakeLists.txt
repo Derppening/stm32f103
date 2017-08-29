@@ -9,26 +9,18 @@ endif ()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)
 
-add_definitions(-DSTM32F10X_HD)
-add_definitions(-DUSE_STDPERIPH_DRIVER)
+file(GLOB_RECURSE SOURCE_FILES "src/*.c" "src/*.cpp")
+file(GLOB_RECURSE INC_FILES "inc/*.h" "inc/*.tpp")
 
-set(COMMON_FLAGS "-DSTM32F103VCT6 -DSTM32F1 -mcpu=cortex-m3 -mthumb -msoft-float")
-set(CMAKE_C_FLAGS "${COMMON_FLAGS}")
-set(CMAKE_CXX_FLAGS "${COMMON_FLAGS}")
-set(LINKER_FLAGS "-T${CMAKE_CURRENT_SOURCE_DIR}/STM32.ld -D_ROM=256K -D_RAM=48K -DSTM32F1 -D_ROM_OFF=0x08000000 -D_RAM_OFF=0x20000000 -lc -lnosys --specs=rdimon.specs -Wl,--gc-sections")
-
-file(GLOB_RECURSE SOURCE_FILES "src/*.c" "src/*.cpp" "lib/*.c" "lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_hd.s")
-file(GLOB_RECURSE INC_FILES "src/*.h" "src/*.tpp" "lib/*.h")
 include_directories(
-        src/config
-        src/core
-        src/lib
-        src/user
-        lib/
-        lib/STM32F10x_StdPeriph_Driver/inc
-        lib/CMSIS/CM3/CoreSupport
-        lib/CMSIS/CM3/DeviceSupport/ST/STM32F10x
+        inc/config
+        inc/core
+        inc/lib
+        inc/user
 )
+
+include("cmake/spl.cmake")
+include("cmake/stm32103vct6.cmake")
 
 add_executable(${PROJECT_NAME}.elf ${SOURCE_FILES} ${INC_FILES})
 set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS ${LINKER_FLAGS})
