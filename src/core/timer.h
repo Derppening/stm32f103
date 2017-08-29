@@ -3,6 +3,7 @@
 
 #include "stm32f10x_tim.h"
 #include "misc.h"
+#include <stm32f10x_rcc.h>
 
 class TIMER
 {

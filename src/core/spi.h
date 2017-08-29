@@ -3,6 +3,7 @@
 
 #include "stm32f10x.h"
 #include "gpio_config.h"
+#include <stm32f10x_spi.h>
 
 class SPI
 {
