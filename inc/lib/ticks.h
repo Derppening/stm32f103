@@ -3,11 +3,12 @@
 
 #include "timer_config.h"
 
-namespace ticks
-{
-	void init();
-	uint32_t get();
-	void handler();
+namespace ticks {
+    void init();
+
+    uint32_t get();
+
+    void handler();
 }
 
 #endif

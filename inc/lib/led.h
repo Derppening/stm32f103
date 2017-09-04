@@ -3,19 +3,23 @@
 
 #include "gpio_config.h"
 
-class LED
-{
+class LED {
 
-	private:
-	GPIO* gpio;
+private:
+    GPIO *gpio;
 
-	public:
-	LED(GPIO* gpio);
-	void init();
-	void on();
-	void off();
-	void toggle();
-	void set(bool state);
+public:
+    LED(GPIO *gpio);
+
+    void init();
+
+    void on();
+
+    void off();
+
+    void toggle();
+
+    void set(bool state);
 
 };
 

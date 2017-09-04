@@ -3,16 +3,17 @@
 
 #include "gpio_config.h"
 
-class Button
-{
+class Button {
 
-	private:
-	GPIO* gpio;
+private:
+    GPIO *gpio;
 
-	public:
-	Button(GPIO* gpio);
-	void init();
-	uint8_t read();
+public:
+    Button(GPIO *gpio);
+
+    void init();
+
+    uint8_t read();
 
 };
 

@@ -5,19 +5,21 @@
 #include "misc.h"
 #include <stm32f10x_rcc.h>
 
-class TIMER
-{
+class TIMER {
 
-	private:
-	TIM_TypeDef* TIM;
-	uint32_t rcc;
-	IRQn IRQ;
+private:
+    TIM_TypeDef *TIM;
+    uint32_t rcc;
+    IRQn IRQ;
 
-	public:
-	void (*listener)(void);
-	TIMER(TIM_TypeDef* TIM, uint32_t rcc, IRQn IRQn);
-	void init(uint16_t Prescaler, uint16_t Period);
-	void interrupt(void (*callback)(void));
+public:
+    void (*listener)(void);
+
+    TIMER(TIM_TypeDef *TIM, uint32_t rcc, IRQn IRQn);
+
+    void init(uint16_t Prescaler, uint16_t Period);
+
+    void interrupt(void (*callback)(void));
 
 };
 

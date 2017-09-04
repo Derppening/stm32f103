@@ -7,7 +7,7 @@ extern TIMER CLK2;
 
 extern "C"
 {
-	void TIM2_IRQHandler();
+void TIM2_IRQHandler();
 }
 
 #endif
