@@ -16,7 +16,7 @@ int main()
 //	BUTTON1.init();
 //	BUTTON2.init();
 //	BUTTON3.init();
-    LED LEDa(&PB12);
+    LED LEDa(&PA15);
     LEDa.init();
 	while (1)
 	{
