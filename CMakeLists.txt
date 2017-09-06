@@ -3,10 +3,10 @@ project(stm32f103 C CXX ASM)
 
 # Include an error in case the user forgets to specify ARM as a toolchain
 if (NOT CMAKE_TOOLCHAIN_FILE)
-    message(FATAL_ERROR "Cross compiling only. Please use -DCMAKE_TOOLCHAIN_FILE=rtlib/cmake/arm-toolchain.cmake or use your own toolchain file")
+    message(FATAL_ERROR "Cross compiling only. Please use -DCMAKE_TOOLCHAIN_FILE=cmake/arm-toolchain.cmake or use your own toolchain file")
 endif ()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)
 
 file(GLOB_RECURSE SOURCE_FILES "src/*.c" "src/*.cpp")
