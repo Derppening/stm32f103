@@ -1,10 +1,10 @@
-#include "led.h"
-
-#include <cassert>
-
 #include "config.h"
 
 #ifdef LIB_USE_LED
+
+#include "led.h"
+
+#include <cassert>
 
 namespace {
 inline Pin GetPin(const uint8_t id) {
@@ -43,6 +43,4 @@ void Led::Switch() {
   gpio_.Toggle();
 }
 
-#else
-#error "This configuration is not specified to use the Led library."
 #endif  // LIB_USE_LED

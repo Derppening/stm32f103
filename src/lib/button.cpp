@@ -1,10 +1,10 @@
-#include "button.h"
-
-#include <cassert>
-
 #include "config.h"
 
 #ifdef LIB_USE_BUTTON
+
+#include "button.h"
+
+#include <cassert>
 
 namespace {
 inline Pin GetPin(const uint8_t id) {
@@ -33,6 +33,4 @@ bool Button::Read() {
   return !static_cast<bool>(gpio_.Read());
 }
 
-#else
-#error "This configuration is not specified to use the Button library."
 #endif  // LIB_USE_BUTTON

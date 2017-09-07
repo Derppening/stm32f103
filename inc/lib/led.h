@@ -2,18 +2,21 @@
 #define STM32F103_LIB_LED_H_
 
 #include <cstdint>
-
 #include <utility>
+#include <stm32f10x.h>
 
-#include <CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h>
-
+#include "config.h"
 #include "gpio.h"
 #include "util.h"
+
+#if !defined(LIB_USE_LED) || LIB_USE_LED < 1
+#error "This configuration is not specified to use this library"
+#endif  // !defined(LIB_USE_LED) || LIB_USE_LED < 1
 
 class Led {
  public:
   struct Config {
-	  uint8_t id;
+    uint8_t id;
   };
 
   explicit Led(const Config& config);
@@ -23,6 +26,7 @@ class Led {
 
  protected:
   Pin* GetPin() { return &pin_; }
+
   Gpio* GetGpio() { return &gpio_; }
 
  private:
