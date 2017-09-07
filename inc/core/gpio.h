@@ -1,6 +1,7 @@
 // gpio.h
 //
-//
+// This file contains the class manipulating Gpio-related functions, including both reading from and write to a GPIO
+// pinout.
 
 #ifndef STM32F103_CORE_GPIO_H_
 #define STM32F103_CORE_GPIO_H_
