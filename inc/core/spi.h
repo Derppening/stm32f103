@@ -1,31 +1,38 @@
-#ifndef _SPI_H
-#define _SPI_H
+#ifndef STM32F103_CORE_SPI_H_
+#define STM32F103_CORE_SPI_H_
 
-#include "stm32f10x.h"
-#include "gpio_config.h"
 #include <stm32f10x_spi.h>
 
-class SPI {
+#include "gpio.h"
+#include "util.h"
 
-private:
-    SPI_TypeDef *_SPI_;
+class Spi {
+ public:
+  struct Config {
+    SPI_TypeDef* spi;
     uint32_t rcc;
-    GPIO *SCK;
-    GPIO *MISO;
-    GPIO *MOSI;
-    GPIO *SS;
+    Pin sck;
+    Pin miso;
+    Pin mosi;
+    Pin ss;
+  };
 
-public:
-    SPI(SPI_TypeDef *_SPI_, uint32_t rcc, GPIO *SCK, GPIO *MISO, GPIO *MOSI, GPIO *SS);
+  explicit Spi(const Config& config);
 
-    void init();
+  char Transfer(char byte);
 
-    char transfer(char byte);
+  void Enable();
+  void Disable();
 
-    void enable();
+ private:
+  void Init();
 
-    void disable();
-
+  SPI_TypeDef* spi_;
+  uint32_t rcc_;
+  Gpio sck_;
+  Gpio miso_;
+  Gpio mosi_;
+  Gpio ss_;
 };
 
-#endif
+#endif  // STM32F103_CORE_SPI_H_
