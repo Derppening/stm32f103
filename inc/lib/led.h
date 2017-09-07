@@ -1,26 +1,33 @@
-#ifndef _LED_H
-#define _LED_H
+#ifndef STM32F103_LIB_LED_H_
+#define STM32F103_LIB_LED_H_
 
-#include "gpio_config.h"
+#include <cstdint>
 
-class LED {
+#include <utility>
 
-private:
-    GPIO *gpio;
+#include <CMSIS/CM3/DeviceSupport/ST/STM32F10x/stm32f10x.h>
 
-public:
-    LED(GPIO *gpio);
+#include "gpio.h"
+#include "util.h"
 
-    void init();
+class Led {
+ public:
+  struct Config {
+	  uint8_t id;
+  };
 
-    void on();
+  explicit Led(const Config& config);
 
-    void off();
+  void SetEnable(const bool flag);
+  void Switch();
 
-    void toggle();
+ protected:
+  Pin* GetPin() { return &pin_; }
+  Gpio* GetGpio() { return &gpio_; }
 
-    void set(bool state);
-
+ private:
+  Pin pin_;
+  Gpio gpio_;
 };
 
-#endif
+#endif  // STM32F103_LIB_LED_H_

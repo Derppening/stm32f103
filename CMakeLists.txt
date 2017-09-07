@@ -6,9 +6,11 @@ if (NOT CMAKE_TOOLCHAIN_FILE)
     message(FATAL_ERROR "Cross compiling only. Please use -DCMAKE_TOOLCHAIN_FILE=cmake/arm-toolchain.cmake or use your own toolchain file")
 endif ()
 
+set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)
 
+add_definitions(-DTEST_CONFIG)
 file(GLOB_RECURSE SOURCE_FILES "src/*.c" "src/*.cpp")
 file(GLOB_RECURSE INC_FILES "inc/*.h" "inc/*.tpp")
 
@@ -20,7 +22,8 @@ include_directories(
 )
 
 include("cmake/spl.cmake")
-include("cmake/stm32103rbt6.cmake")
+include("cmake/stm32103vct6.cmake")
+include("cmake/compile_flags.cmake")
 
 add_executable(${PROJECT_NAME}.elf ${SOURCE_FILES} ${INC_FILES})
 set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS ${LINKER_FLAGS})

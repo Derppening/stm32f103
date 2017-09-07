@@ -7,7 +7,6 @@ find_program(ARM_CXX arm-none-eabi-g++)
 find_program(ARM_OBJCOPY arm-none-eabi-objcopy)
 find_program(ARM_SIZE arm-none-eabi-size)
 
-
 if (${CMAKE_VERSION} VERSION_LESS 3.6.0)
     include(CMakeForceCompiler)
     cmake_force_c_compiler(${ARM_CC} GNU)

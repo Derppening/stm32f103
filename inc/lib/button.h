@@ -1,20 +1,31 @@
-#ifndef _BUTTON_H
-#define _BUTTON_H
+#ifndef STM32F103_LIB_BUTTON_H_
+#define STM32F103_LIB_BUTTON_H_
 
-#include "gpio_config.h"
+#include <cstdint>
+
+#include <utility>
+
+#include <stm32f10x.h>
+
+#include "gpio.h"
+#include "util.h"
 
 class Button {
+ public:
+  struct Config {
+    uint8_t id;
+  };
 
-private:
-    GPIO *gpio;
+  explicit Button(const Config& config);
+  bool Read();
 
-public:
-    Button(GPIO *gpio);
+ protected:
+  Pin* GetPin() { return &pin_; }
+  Gpio* GetGpio() { return &gpio_; }
 
-    void init();
-
-    uint8_t read();
-
+ private:
+  Pin pin_;
+  Gpio gpio_;
 };
 
 #endif
