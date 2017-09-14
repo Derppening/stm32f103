@@ -13,33 +13,21 @@
 
 class Gpio {
  public:
+  struct Config {
+    Pin pin;
+
+    GPIOMode_TypeDef mode;
+    GPIOSpeed_TypeDef speed;
+    uint32_t rcc = 0;
+  };
+
   /**
    * @brief Constructor accepting a port and a pin.
    *
    * @param port Port. Usually in the format of GPIOx, where x is an upper case character.
    * @param pin Pin number. Usually in the format of GPIO_Pin_x, where x is a positive integer.
    */
-  Gpio(GPIO_TypeDef* port, uint16_t pin);
-
-  /**
-   * @brief Constructor accept a Pin object.
-   *
-   * @note For most use cases, this constructor is unnecessary. @c Gpio(GPIO_TypeDef*,uint16_t) is similar to this
-   * in every single way, except it lacks the overhead of delegating to the above constructor.
-   *
-   * @param pin Pin object.
-   */
-  explicit Gpio(Pin pin) : Gpio(pin.first, pin.second) {}
-
-  /**
-   * @brief Performs initialization of this GPIO.
-   *
-   * @param Mode
-   * @param Speed
-   * @param rcc
-   */
-  void Init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed, uint32_t rcc = 0);
-  void Rcc(FunctionalState state, uint32_t rcc = 0);
+  explicit Gpio(const Config& config);
 
   /**
    * @brief Set this GPIO to low position.
@@ -73,6 +61,17 @@ class Gpio {
   uint16_t GetPinSource();
   GPIO_TypeDef* GetPort();
   uint16_t GetPin();
+
+ protected:
+  /**
+ * @brief Performs initialization of this GPIO.
+ *
+ * @param mode
+ * @param speed
+ * @param rcc
+ */
+  void Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc = 0);
+  void Rcc(FunctionalState state, uint32_t rcc = 0);
 
  private:
   GPIO_TypeDef* port_;

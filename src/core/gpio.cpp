@@ -2,15 +2,20 @@
 
 #include <cassert>
 
-Gpio::Gpio(GPIO_TypeDef* port, uint16_t pin) : port_(port) {
+Gpio::Gpio(const Config& config) :
+    port_(config.pin.first) {
+  assert(port_ != nullptr);
+
   GPIO_StructInit(&GPIO_InitStructure_);
-  GPIO_InitStructure_.GPIO_Pin = pin;
+  GPIO_InitStructure_.GPIO_Pin = config.pin.second;
+
+  Init(config.mode, config.speed, config.rcc);
 }
 
-void Gpio::Init(GPIOMode_TypeDef Mode, GPIOSpeed_TypeDef Speed, uint32_t rcc) {
+void Gpio::Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc) {
   Rcc(ENABLE, rcc);
-  GPIO_InitStructure_.GPIO_Mode = Mode;
-  GPIO_InitStructure_.GPIO_Speed = Speed;
+  GPIO_InitStructure_.GPIO_Mode = mode;
+  GPIO_InitStructure_.GPIO_Speed = speed;
   GPIO_Init(port_, &(GPIO_InitStructure_));
 }
 

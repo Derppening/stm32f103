@@ -2,6 +2,7 @@
 #define STM32F103_LIB_BUTTON_H_
 
 #include <cstdint>
+#include <memory>
 #include <utility>
 #include <stm32f10x.h>
 
@@ -25,11 +26,11 @@ class Button {
  protected:
   Pin* GetPin() { return &pin_; }
 
-  Gpio* GetGpio() { return &gpio_; }
+  Gpio* GetGpio() { return gpio_.get(); }
 
  private:
   Pin pin_;
-  Gpio gpio_;
+  std::unique_ptr<Gpio> gpio_ = nullptr;
 };
 
 #endif

@@ -2,6 +2,8 @@
 #define STM32F103_CORE_UART_H_
 
 #include <functional>
+#include <memory>
+
 #include <stm32f10x_usart.h>
 
 #include "gpio.h"
@@ -19,9 +21,11 @@ class Uart {
     uint32_t tx_periph;
     uint32_t rx_periph;
     IRQn irq;
+
+    uint32_t baud_rate;
   };
 
-  Uart(const Config& config, uint32_t baud_rate);
+  Uart(const Config& config);
 
   void EnableInterrupt(Listener&& listener);
 
@@ -36,8 +40,8 @@ class Uart {
 
   USART_TypeDef* usart_;
   uint32_t rcc_;
-  Gpio tx_;
-  Gpio rx_;
+  std::unique_ptr<Gpio> tx_ = nullptr;
+  std::unique_ptr<Gpio> rx_ = nullptr;
   uint32_t tx_periph_;
   uint32_t rx_periph_;
   IRQn irq_;

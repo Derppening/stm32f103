@@ -1,26 +1,36 @@
 #include "uart.h"
 
+#include <cassert>
 #include <cstdarg>
 #include <cstdio>
 
 #include <stm32f10x_conf.h>
 
-Uart::Uart(const Config& config, uint32_t baud_rate) :
+Uart::Uart(const Config& config) :
     usart_(config.usart),
     rcc_(config.rcc),
-    tx_(Gpio(config.tx)),
-    rx_(Gpio(config.rx)),
     tx_periph_(config.tx_periph),
     rx_periph_(config.rx_periph),
     irq_(config.irq) {
-  Init(baud_rate);
+  Gpio::Config gpio_config;
+  gpio_config.speed = GPIO_Speed_50MHz;
+  gpio_config.rcc = RCC_APB2Periph_AFIO;
+  gpio_config.mode = GPIO_Mode_AF_PP;
+  gpio_config.pin = config.tx;
+  tx_ = std::make_unique<Gpio>(gpio_config);
+
+  gpio_config.mode = GPIO_Mode_IN_FLOATING;
+  gpio_config.pin = config.rx;
+  rx_ = std::make_unique<Gpio>(gpio_config);
+
+  assert(tx_ != nullptr);
+  assert(rx_ != nullptr);
+
+  Init(config.baud_rate);
 }
 
 void Uart::Init(uint32_t baud_rate) {
   USART_InitTypeDef istruct;
-
-  tx_.Init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
-  rx_.Init(GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz, RCC_APB2Periph_AFIO);
 
   if (usart_ == USART1) {
     RCC_APB2PeriphClockCmd(rcc_, ENABLE);

@@ -1,6 +1,8 @@
 #ifndef STM32F103_CORE_SPI_H_
 #define STM32F103_CORE_SPI_H_
 
+#include <memory>
+
 #include <stm32f10x_spi.h>
 
 #include "gpio.h"
@@ -29,10 +31,10 @@ class Spi {
 
   SPI_TypeDef* spi_;
   uint32_t rcc_;
-  Gpio sck_;
-  Gpio miso_;
-  Gpio mosi_;
-  Gpio ss_;
+  std::unique_ptr<Gpio> sck_ = nullptr;
+  std::unique_ptr<Gpio> miso_ = nullptr;
+  std::unique_ptr<Gpio> mosi_ = nullptr;
+  std::unique_ptr<Gpio> ss_ = nullptr;
 };
 
 #endif  // STM32F103_CORE_SPI_H_

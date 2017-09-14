@@ -7,7 +7,7 @@
 #include <cassert>
 
 namespace {
-inline Pin GetPin(const uint8_t id) {
+inline Pin GetPinout(const uint8_t id) {
   assert_param(id < LIB_USE_LED);
   switch (id) {
     default:
@@ -29,18 +29,23 @@ inline Pin GetPin(const uint8_t id) {
 }
 }  // namespace
 
-Led::Led(const Led::Config& config) : pin_(::GetPin(config.id)), gpio_(Gpio(pin_.first, pin_.second)) {
-  gpio_.Init(GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
-  GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
-  gpio_.Reset();
+Led::Led(const Config& config) :
+    pin_(GetPinout(config.id)) {
+  Gpio::Config gpio_config;
+  gpio_config.pin = pin_;
+  gpio_config.mode = GPIO_Mode_Out_PP;
+  gpio_config.speed = GPIO_Speed_50MHz;
+  gpio_ = std::make_unique<Gpio>(gpio_config);
+
+  assert(gpio_ != nullptr);
 }
 
 void Led::SetEnable(const bool flag) {
-  gpio_.Set(flag);
+  gpio_->Set(flag);
 }
 
 void Led::Switch() {
-  gpio_.Toggle();
+  gpio_->Toggle();
 }
 
 #endif  // LIB_USE_LED

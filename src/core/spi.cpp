@@ -5,14 +5,32 @@
 
 #include "config.h"
 
-Spi::Spi(const Config& deps) :
-    spi_(deps.spi),
-    rcc_(deps.rcc),
-    sck_(deps.sck),
-    miso_(deps.miso),
-    mosi_(deps.mosi),
-    ss_(deps.ss) {
+Spi::Spi(const Config& config) :
+    spi_(config.spi),
+    rcc_(config.rcc) {
   assert(spi_ != nullptr);
+
+  Gpio::Config gpio_config;
+  gpio_config.speed = GPIO_Speed_50MHz;
+  gpio_config.mode = GPIO_Mode_AF_PP;
+  gpio_config.pin = config.sck;
+  sck_ = std::make_unique<Gpio>(gpio_config);
+
+  gpio_config.pin = config.miso;
+  miso_ = std::make_unique<Gpio>(gpio_config);
+
+  gpio_config.pin = config.mosi;
+  mosi_ = std::make_unique<Gpio>(gpio_config);
+
+  gpio_config.mode = GPIO_Mode_Out_PP;
+  gpio_config.pin = config.ss;
+  ss_ = std::make_unique<Gpio>(gpio_config);
+
+  assert(sck_ != nullptr);
+  assert(miso_ != nullptr);
+  assert(mosi_ != nullptr);
+  assert(ss_ != nullptr);
+
   Init();
 }
 
@@ -31,13 +49,6 @@ void Spi::Init() {
 
   SPI_Init(spi_, &istruct);
   SPI_Cmd(spi_, ENABLE);
-
-  sck_.Init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
-  miso_.Init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
-  mosi_.Init(GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
-  ss_.Init(GPIO_Mode_Out_PP, GPIO_Speed_50MHz);
-
-  SPI_Cmd(spi_, ENABLE);
   SPI_CalculateCRC(spi_, DISABLE);
   SPI_SSOutputCmd(spi_, DISABLE);
 }
@@ -51,9 +62,9 @@ char Spi::Transfer(char byte) {
 }
 
 void Spi::Enable() {
-  ss_.GetPort()->BRR = ss_.GetPin();
+  ss_->GetPort()->BRR = ss_->GetPin();
 }
 
 void Spi::Disable() {
-  ss_.GetPort()->BSRR = ss_.GetPin();
+  ss_->GetPort()->BSRR = ss_->GetPin();
 }

@@ -7,7 +7,7 @@
 #include <cassert>
 
 namespace {
-inline Pin GetPin(const uint8_t id) {
+inline Pin GetPinout(const uint8_t id) {
   assert_param(id < LIB_USE_BUTTON);
   switch (id) {
     default:
@@ -25,12 +25,19 @@ inline Pin GetPin(const uint8_t id) {
 }
 }  // namespace
 
-Button::Button(const Config& config) : pin_(::GetPin(config.id)), gpio_(Gpio(pin_.first, pin_.second)) {
-  gpio_.Init(GPIO_Mode_IPU, GPIO_Speed_50MHz);
+Button::Button(const Config& config) :
+    pin_(GetPinout(config.id)) {
+  Gpio::Config gpio_config;
+  gpio_config.pin = pin_;
+  gpio_config.mode = GPIO_Mode_IPU;
+  gpio_config.speed = GPIO_Speed_50MHz;
+  gpio_ = std::make_unique<Gpio>(gpio_config);
+
+  assert(gpio_ != nullptr);
 }
 
 bool Button::Read() {
-  return !static_cast<bool>(gpio_.Read());
+  return !static_cast<bool>(gpio_->Read());
 }
 
 #endif  // LIB_USE_BUTTON
