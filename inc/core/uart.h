@@ -33,9 +33,10 @@ class Uart {
   void Tx(const char* data, ...);
   void Tx(const std::string& str);
 
- private:
+ protected:
   void Init(uint32_t baud_rate);
 
+ private:
   Listener listener_ = nullptr;
 
   USART_TypeDef* usart_;

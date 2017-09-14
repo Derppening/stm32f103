@@ -26,9 +26,10 @@ class Spi {
   void Enable();
   void Disable();
 
- private:
+ protected:
   void Init();
 
+ private:
   SPI_TypeDef* spi_;
   uint32_t rcc_;
   std::unique_ptr<Gpio> sck_ = nullptr;
