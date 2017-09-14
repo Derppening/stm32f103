@@ -1,6 +1,8 @@
 #include "uart.h"
 
 #include <cstdarg>
+#include <cstdio>
+
 #include <stm32f10x_conf.h>
 
 Uart::Uart(const Config& config, uint32_t baud_rate) :
@@ -11,7 +13,7 @@ Uart::Uart(const Config& config, uint32_t baud_rate) :
     tx_periph_(config.tx_periph),
     rx_periph_(config.rx_periph),
     irq_(config.irq) {
-    Init(baud_rate);
+  Init(baud_rate);
 }
 
 void Uart::Init(uint32_t baud_rate) {
@@ -49,7 +51,7 @@ void Uart::EnableInterrupt(Listener&& listener) {
 }
 
 void Uart::TxByte(const char byte) {
-  while (USART_GetFlagStatus(usart_, USART_FLAG_TXE) == RESET);
+  while (USART_GetFlagStatus(usart_, USART_FLAG_TXE) == RESET) {}
   USART_SendData(usart_, byte);
 }
 
@@ -59,7 +61,7 @@ void Uart::Tx(const char* data, ...) {
   char* ptr = buffer;
 
   va_start(args, data);
-  vsprintf(buffer, data, args);
+  std::vsprintf(buffer, data, args);
   va_end(args);
 
   while (*ptr != '\0') {
