@@ -1,7 +1,7 @@
 # HKUST Robotics Team STM32F103 SPL Library
 
-Seriously don't use this library, go use libopencm3 or HAL unless you're desperate, BUT I guarantee it's much better 
-than the spaghetti code than the internal uses. Bonus points for being open source
+Seriously don't use this library, go use libOpenCM3 or HAL unless you're desperate, BUT I guarantee it's much better 
+than the spaghetti code than what the internal people use. Bonus points for being open source.
 
 # Documentation
 
@@ -10,3 +10,11 @@ than the spaghetti code than the internal uses. Bonus points for being open sour
 # License
 
 Ironic huh? We're part of HKUST but using the MIT License :thinking:
+
+```kotlin
+class HKUSTLicense(): MITLicense() {
+    init {
+        println("This is obviously an HKUST License")
+    }
+}
+```
