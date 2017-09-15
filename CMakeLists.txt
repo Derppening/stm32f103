@@ -26,7 +26,7 @@ include_directories(
 )
 
 include("cmake/spl.cmake")
-include("cmake/stm32103vct6.cmake")
+include("cmake/stm32f103vct6.cmake")
 include("cmake/compile_flags.cmake")
 
 set(ELF_OUT "${PROJECT_NAME}_${CMAKE_BUILD_TYPE}.elf")
