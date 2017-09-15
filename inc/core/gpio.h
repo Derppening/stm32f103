@@ -1,8 +1,3 @@
-// gpio.h
-//
-// This file contains the class manipulating Gpio-related functions, including both reading from and write to a GPIO
-// pinout.
-
 #ifndef STM32F103_CORE_GPIO_H_
 #define STM32F103_CORE_GPIO_H_
 
@@ -11,36 +6,45 @@
 
 #include "util.h"
 
+/**
+ * @brief Implements an abstraction layer for GPIO.
+ */
 class Gpio {
  public:
+  /**
+   * @brief Configuration for an individual GPIO pin.
+   */
   struct Config {
+    /**
+     * @brief GPIO Pin to enable and initialize
+     */
     Pin pin;
 
+    /**
+     * @brief GPIO Mode.
+     *
+     * See documentation for @c GPIOMode_TypeDef.
+     */
     GPIOMode_TypeDef mode;
-    GPIOSpeed_TypeDef speed;
+    /**
+     * @brief GPIO output maximum frequency.
+     *
+     * See documentation for @c GPIOSpeed_TypeDef.
+     */
+    GPIOSpeed_TypeDef speed = GPIO_Speed_50MHz;
+    /**
+     * @brief Reset and Clock Control (RCC).
+     */
     uint32_t rcc = 0;
   };
 
   /**
-   * @brief Constructor accepting a port and a pin.
+   * @brief Constructor for Gpio.
    *
-   * @param port Port. Usually in the format of GPIOx, where x is an upper case character.
-   * @param pin Pin number. Usually in the format of GPIO_Pin_x, where x is a positive integer.
+   * @param config GPIO configuration settings
    */
   explicit Gpio(const Config& config);
 
-  /**
-   * @brief Set this GPIO to low position.
-   *
-   * @note Use @c Set(bool) instead. Please.
-   */
-  void Reset();
-  /**
-   * @brief Set this GPIO to high position.
-   *
-   * @note Use @c Set(bool) instead. Please.
-   */
-  void Set();
   /**
    * @brief Sets this GPIO to @c state.
    *
@@ -58,19 +62,34 @@ class Gpio {
    */
   uint8_t Read();
 
+  /**
+   * @return Pin source for the current GPIO
+   */
   uint16_t GetPinSource();
+  /**
+   * @return Port for the current GPIO
+   */
   GPIO_TypeDef* GetPort();
+  /**
+   * @return Pin for the current GPIO
+   */
   uint16_t GetPin();
 
  protected:
   /**
  * @brief Performs initialization of this GPIO.
  *
- * @param mode
- * @param speed
- * @param rcc
+ * @param mode GPIO mode
+ * @param speed GPIO maximum output speed
+ * @param rcc Reset and Clock Control
  */
   void Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc = 0);
+  /**
+   * @brief Enables/Disables RCC.
+   *
+   * @param state ENABLE or DISABLE
+   * @param rcc Reset and Clock Control
+   */
   void Rcc(FunctionalState state, uint32_t rcc = 0);
 
  private:

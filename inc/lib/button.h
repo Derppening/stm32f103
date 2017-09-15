@@ -14,18 +14,41 @@
 #error "This configuration is not specified to use this library"
 #endif  // !defined(LIB_USE_BUTTON) || LIB_USE_BUTTON < 1
 
+/**
+ * @brief Implements button-related features.
+ */
 class Button {
  public:
+  /**
+   * @brief Configuration for button.
+   */
   struct Config {
+    /**
+     * @brief ID of button.
+     */
     uint8_t id;
   };
 
+  /**
+   * @brief Constructor for button.
+   *
+   * @param config Button configuration
+   */
   explicit Button(const Config& config);
+  /**
+   * @return State of button
+   */
   bool Read();
 
  protected:
+  /**
+   * @return Pinout of button
+   */
   Pin* GetPin() { return &pin_; }
 
+  /**
+   * @return GPIO object underlying the button
+   */
   Gpio* GetGpio() { return gpio_.get(); }
 
  private:

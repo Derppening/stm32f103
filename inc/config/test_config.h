@@ -1,3 +1,7 @@
+// Board Identification: MainBoard_Ver4_2
+// Board Designer: Chan Tsz Ho
+// MCU: STM32F103VCT6
+
 #ifndef STM32F103_CONFIG_TEST_CONFIG_H_
 #define STM32F103_CONFIG_TEST_CONFIG_H_
 

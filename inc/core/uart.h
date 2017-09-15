@@ -9,31 +9,88 @@
 #include "gpio.h"
 #include "util.h"
 
+/**
+ * @brief Implements an abstraction layer for UART interface.
+ */
 class Uart {
  public:
-  using Listener = std::function<void(const char)>;
-
+  /**
+   * @brief Configuration for individual UART interfaces.
+   */
   struct Config {
+    /**
+     * @brief UART/USART
+     */
     USART_TypeDef* usart;
+    /**
+     * @brief RCC: Reset & Clock Control
+     */
     uint32_t rcc;
+    /**
+     * @brief TX Pin
+     */
     Pin tx;
+    /**
+     * @brief RX Pin
+     */
     Pin rx;
+    /**
+     * @brief TX Peripheral Clock
+     */
     uint32_t tx_periph;
+    /**
+     * @brief RX Peripheral Clock
+     */
     uint32_t rx_periph;
+    /**
+     * @brief Interrupt Handler
+     */
     IRQn irq;
 
+    /**
+     * @brief Baud Rate
+     */
     uint32_t baud_rate;
   };
 
+  /**
+   * @brief Constructor for UART
+   *
+   * @param config UART configuration
+   */
   explicit Uart(const Config& config);
 
+  /**
+   * @brief Enables interrupt for UART RX.
+   */
   void EnableInterrupt();
 
-  void TxByte(const char byte);
+  /**
+   * @brief Transmits one byte.
+   *
+   * @param byte Character to transmit
+   */
+  void TxByte(const uint8_t byte);
+  /**
+   * @brief Transmits a formatted string.
+   *
+   * @param data Formatted string
+   * @param ... Variables
+   */
   void Tx(const char* data, ...);
+  /**
+   * @brief Transmits a string.
+   *
+   * @param str String to transmit
+   */
   void Tx(const std::string& str);
 
  protected:
+  /**
+   * @brief Performs initialization for this UART interface.
+   *
+   * @param baud_rate Baud Rate
+   */
   void Init(uint32_t baud_rate);
 
  private:

@@ -7,6 +7,10 @@
 #include <cassert>
 
 namespace {
+/**
+ * @param id ID of the LED we are using
+ * @return Pin for the LED
+ */
 inline Pin GetPinout(const uint8_t id) {
   assert_param(id < LIB_USE_LED);
   switch (id) {

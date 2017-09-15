@@ -4,6 +4,7 @@
 
 Gpio::Gpio(const Config& config) :
     port_(config.pin.first) {
+  // idiot-proof check
   assert(port_ != nullptr);
 
   GPIO_StructInit(&GPIO_InitStructure_);
@@ -13,7 +14,9 @@ Gpio::Gpio(const Config& config) :
 }
 
 void Gpio::Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc) {
+  // enable the RCC for our GPIO
   Rcc(ENABLE, rcc);
+
   GPIO_InitStructure_.GPIO_Mode = mode;
   GPIO_InitStructure_.GPIO_Speed = speed;
   GPIO_Init(port_, &(GPIO_InitStructure_));
@@ -35,14 +38,6 @@ void Gpio::Rcc(FunctionalState state, uint32_t rcc) {
   } else if (port_ == GPIOG) {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOG | rcc, state);
   }
-}
-
-void Gpio::Set() {
-  Set(true);
-}
-
-void Gpio::Reset() {
-  Set(false);
 }
 
 void Gpio::Toggle() {

@@ -12,6 +12,10 @@ Uart::Uart(const Config& config) :
     tx_periph_(config.tx_periph),
     rx_periph_(config.rx_periph),
     irq_(config.irq) {
+  // idiot-proof check
+  assert(usart_ != nullptr);
+
+  // TX
   Gpio::Config gpio_config;
   gpio_config.speed = GPIO_Speed_50MHz;
   gpio_config.rcc = RCC_APB2Periph_AFIO;
@@ -19,10 +23,12 @@ Uart::Uart(const Config& config) :
   gpio_config.pin = config.tx;
   tx_ = std::make_unique<Gpio>(gpio_config);
 
+  // RX
   gpio_config.mode = GPIO_Mode_IN_FLOATING;
   gpio_config.pin = config.rx;
   rx_ = std::make_unique<Gpio>(gpio_config);
 
+  // make sure everything is ok before proceeding
   assert(tx_ != nullptr);
   assert(rx_ != nullptr);
 
@@ -30,36 +36,43 @@ Uart::Uart(const Config& config) :
 }
 
 void Uart::Init(uint32_t baud_rate) {
-  USART_InitTypeDef istruct;
-
+  // enable the RCC the UART uses
   if (usart_ == USART1) {
     RCC_APB2PeriphClockCmd(rcc_, ENABLE);
   } else {
     RCC_APB1PeriphClockCmd(rcc_, ENABLE);
   }
 
+  // setup the USART_InitStruct
+  USART_InitTypeDef istruct;
   istruct.USART_BaudRate = baud_rate;
   istruct.USART_WordLength = USART_WordLength_8b;
   istruct.USART_StopBits = USART_StopBits_1;
   istruct.USART_Parity = USART_Parity_No;
   istruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
   istruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+
+  // initialize the UART interface
   USART_Init(usart_, &istruct);
   USART_Cmd(usart_, ENABLE);
 }
 
 void Uart::EnableInterrupt() {
+  // enable the interrupt
   USART_ITConfig(usart_, USART_IT_RXNE, ENABLE);
 
+  // setup the NVIC_InitStruct
   NVIC_InitTypeDef nstruct;
   nstruct.NVIC_IRQChannel = irq_;
   nstruct.NVIC_IRQChannelPreemptionPriority = 1;
   nstruct.NVIC_IRQChannelSubPriority = 1;
   nstruct.NVIC_IRQChannelCmd = ENABLE;
+
+  // initialize the NVIC for our UART
   NVIC_Init(&nstruct);
 }
 
-void Uart::TxByte(const char byte) {
+void Uart::TxByte(const uint8_t byte) {
   while (USART_GetFlagStatus(usart_, USART_FLAG_TXE) == RESET) {}
   USART_SendData(usart_, byte);
 }

@@ -7,6 +7,10 @@
 #include <cassert>
 
 namespace {
+/**
+ * @param id ID of button we are using
+ * @return
+ */
 inline Pin GetPinout(const uint8_t id) {
   assert_param(id < LIB_USE_BUTTON);
   switch (id) {

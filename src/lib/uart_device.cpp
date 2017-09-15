@@ -1,5 +1,7 @@
 #include "config.h"
 
+#ifdef LIB_USE_UART
+
 #include <cassert>
 #include <cstdarg>
 
@@ -9,13 +11,32 @@
 std::array<bool, 5> UartDevice::listener_states_ = {};
 std::array<UartDevice::Listener, 5> UartDevice::listeners_ = {nullptr};
 
+/**
+ * @brief USART1 Handler
+ */
 extern "C" void USART1_IRQHandler();
+/**
+ * @brief USART2 Handler
+ */
 extern "C" void USART2_IRQHandler();
+/**
+ * @brief USART3 Handler
+ */
 extern "C" void USART3_IRQHandler();
+/**
+ * @brief UART4 Handler
+ */
 extern "C" void USART4_IRQHandler();
+/**
+ * @brief UART5 Handler
+ */
 extern "C" void USART5_IRQHandler();
 
 namespace {
+/**
+ * @param id ID of UART we are using
+ * @return @c Uart::Config object of our UART object
+ */
 inline Uart::Config GetUartConfig(const uint8_t id) {
   assert_param(id < LIB_USE_UART);
 
@@ -104,7 +125,10 @@ extern "C" void USART5_IRQHandler() {
 bool UartDeviceGetInitState(const uint8_t uart_port) { return UartDevice::GetListenerState(uart_port); }
 
 void UartDeviceTriggerListener(const uint8_t uart_port, const char data) {
-  UartDevice::InvokeListener(uart_port)(data);
+  auto listener = UartDevice::InvokeListener(uart_port);
+  if (listener) {
+    listener(data);
+  }
 }
 
 UartDevice::UartDevice(const Config& config) :
@@ -133,6 +157,8 @@ void UartDevice::Tx(const char* data, ...) {
   va_end(args);
 }
 
-void UartDevice::TxByte(const char byte) {
+void UartDevice::TxByte(const uint8_t byte) {
   uart_->TxByte(byte);
 }
+
+#endif  // LIB_USE_UART
