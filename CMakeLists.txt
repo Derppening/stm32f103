@@ -25,12 +25,15 @@ include("cmake/spl.cmake")
 include("cmake/stm32103vct6.cmake")
 include("cmake/compile_flags.cmake")
 
-add_executable(${PROJECT_NAME}.elf ${SOURCE_FILES} ${INC_FILES})
-target_link_libraries(${PROJECT_NAME}.elf SPL_LIB)
-set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS ${LINKER_FLAGS})
+set(ELF_OUT "${PROJECT_NAME}_${CMAKE_BUILD_TYPE}.elf")
+set(BIN_OUT "${PROJECT_NAME}_${CMAKE_BUILD_TYPE}.bin")
+
+add_executable(${ELF_OUT} ${SOURCE_FILES} ${INC_FILES})
+target_link_libraries(${ELF_OUT} SPL_LIB)
+set_target_properties(${ELF_OUT} PROPERTIES LINK_FLAGS ${LINKER_FLAGS})
 add_custom_target(
-        ${PROJECT_NAME}.bin ALL
-        COMMAND ${ARM_OBJCOPY} -Obinary ${PROJECT_NAME}.elf ${PROJECT_NAME}.bin
+        ${BIN_OUT} ALL
+        COMMAND ${ARM_OBJCOPY} -Obinary ${ELF_OUT} ${BIN_OUT}
         WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
-        DEPENDS ${PROJECT_NAME}.elf
+        DEPENDS ${ELF_OUT}
 )
