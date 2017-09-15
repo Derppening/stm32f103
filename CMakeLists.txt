@@ -37,3 +37,10 @@ add_custom_target(
         WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
         DEPENDS ${ELF_OUT}
 )
+
+add_custom_command(
+        TARGET ${ELF_OUT}
+        POST_BUILD
+        COMMAND ${ARM_SIZE} ${ELF_OUT}
+        WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+)
