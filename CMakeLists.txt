@@ -26,6 +26,7 @@ include("cmake/stm32103vct6.cmake")
 include("cmake/compile_flags.cmake")
 
 add_executable(${PROJECT_NAME}.elf ${SOURCE_FILES} ${INC_FILES})
+target_link_libraries(${PROJECT_NAME}.elf SPL_LIB)
 set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS ${LINKER_FLAGS})
 add_custom_target(
         ${PROJECT_NAME}.bin ALL
