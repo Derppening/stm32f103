@@ -48,8 +48,7 @@ void Uart::Init(uint32_t baud_rate) {
   USART_Cmd(usart_, ENABLE);
 }
 
-void Uart::EnableInterrupt(Listener&& listener) {
-  listener_ = listener;
+void Uart::EnableInterrupt() {
   USART_ITConfig(usart_, USART_IT_RXNE, ENABLE);
 
   NVIC_InitTypeDef nstruct;

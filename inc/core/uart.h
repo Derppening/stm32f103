@@ -25,9 +25,9 @@ class Uart {
     uint32_t baud_rate;
   };
 
-  Uart(const Config& config);
+  explicit Uart(const Config& config);
 
-  void EnableInterrupt(Listener&& listener);
+  void EnableInterrupt();
 
   void TxByte(const char byte);
   void Tx(const char* data, ...);
@@ -37,8 +37,6 @@ class Uart {
   void Init(uint32_t baud_rate);
 
  private:
-  Listener listener_ = nullptr;
-
   USART_TypeDef* usart_;
   uint32_t rcc_;
   std::unique_ptr<Gpio> tx_ = nullptr;
