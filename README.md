@@ -11,10 +11,11 @@ than the spaghetti code than what the internal people use. Bonus points for bein
 
 Ironic huh? We're part of HKUST but using the MIT License :thinking:
 
-```kotlin
-class HKUSTLicense(): MITLicense() {
-    init {
-        println("This is obviously an HKUST License")
+```cpp
+class HKUSTLicense : public MITLicense {
+  public:
+    HKUSTLicense() {
+        std::cout << "This is definitely an HKUST License. *Believe me*." << std::endl;
     }
 }
 ```
