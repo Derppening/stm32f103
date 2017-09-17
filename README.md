@@ -5,7 +5,9 @@ than the spaghetti code than what the internal people use. Bonus points for bein
 
 # Documentation
 
-[Go to the wiki and go find out how to use this library](https://github.com/Derppening/stm32f103/wiki)
+~~[Go to the wiki and go find out how to use this library](https://github.com/Derppening/stm32f103/wiki)~~
+
+[Blah don't use the wiki, doxygen docs FTW!](https://derppening.github.io/stm32f103/)
 
 # License
 
