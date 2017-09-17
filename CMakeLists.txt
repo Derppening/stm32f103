@@ -48,3 +48,17 @@ add_custom_command(
         COMMAND ${ARM_SIZE} ${ELF_OUT}
         WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
 )
+
+# ------------- DOCS ---------------
+
+find_package(Doxygen)
+
+set(DOXYGEN_GENERATE_HTML YES)
+set(DOXYGEN_GENERATE_MAN NO)
+set(DOXYGEN_EXCLUDE_PATTERNS */lib/*)
+set(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/doxygen")
+
+doxygen_add_docs(
+        doxygen
+        ${PROJECT_SOURCE_DIR}
+)
