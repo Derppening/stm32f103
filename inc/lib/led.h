@@ -55,11 +55,11 @@ class Led {
   /**
    * @return GPIO object underlying the button
    */
-  Gpio* GetGpio() { return gpio_.get(); }
+  GPIO* GetGpio() { return gpio_.get(); }
 
  private:
   Pin pin_;
-  std::unique_ptr<Gpio> gpio_;
+  std::unique_ptr<GPIO> gpio_;
 };
 
 #endif  // STM32F103_LIB_LED_H_

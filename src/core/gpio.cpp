@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-Gpio::Gpio(const Config& config) :
+GPIO::GPIO(const Config& config) :
     port_(config.pin.first) {
   // idiot-proof check
   assert(port_ != nullptr);
@@ -13,7 +13,7 @@ Gpio::Gpio(const Config& config) :
   Init(config.mode, config.speed, config.rcc);
 }
 
-void Gpio::Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc) {
+void GPIO::Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc) {
   // enable the RCC for our GPIO
   Rcc(ENABLE, rcc);
 
@@ -22,7 +22,7 @@ void Gpio::Init(GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, uint32_t rcc) {
   GPIO_Init(port_, &(GPIO_InitStructure_));
 }
 
-void Gpio::Rcc(FunctionalState state, uint32_t rcc) {
+void GPIO::Rcc(FunctionalState state, uint32_t rcc) {
   if (port_ == GPIOA) {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | rcc, state);
   } else if (port_ == GPIOB) {
@@ -40,11 +40,11 @@ void Gpio::Rcc(FunctionalState state, uint32_t rcc) {
   }
 }
 
-void Gpio::Toggle() {
+void GPIO::Toggle() {
   Set(!Read());
 }
 
-void Gpio::Set(bool state) {
+void GPIO::Set(bool state) {
   if (state) {
     GPIO_WriteBit(port_, GPIO_InitStructure_.GPIO_Pin, Bit_SET);
   } else {
@@ -52,11 +52,11 @@ void Gpio::Set(bool state) {
   }
 }
 
-bool Gpio::Read() {
+bool GPIO::Read() {
   return static_cast<bool>(GPIO_ReadInputDataBit(port_, GPIO_InitStructure_.GPIO_Pin));
 }
 
-uint16_t Gpio::GetPinSource() {
+uint16_t GPIO::GetPinSource() {
   switch (GPIO_InitStructure_.GPIO_Pin) {
     case GPIO_Pin_0: return GPIO_PinSource0;
     case GPIO_Pin_1: return GPIO_PinSource1;
@@ -79,10 +79,10 @@ uint16_t Gpio::GetPinSource() {
   return 0;
 }
 
-GPIO_TypeDef* Gpio::GetPort() {
+GPIO_TypeDef* GPIO::GetPort() {
   return port_;
 }
 
-uint16_t Gpio::GetPin() {
+uint16_t GPIO::GetPin() {
   return GPIO_InitStructure_.GPIO_Pin;
 }

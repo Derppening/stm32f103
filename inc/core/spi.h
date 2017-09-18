@@ -11,7 +11,7 @@
 /**
  * @brief Implements an abstraction layer for SPI.
  */
-class Spi {
+class SPI {
  public:
   /**
    * @brief Configuration for individual SPI.
@@ -48,7 +48,7 @@ class Spi {
    *
    * @param config SPI Bus configuration
    */
-  explicit Spi(const Config& config);
+  explicit SPI(const Config& config);
 
   char Transfer(char byte);
 
@@ -70,10 +70,10 @@ class Spi {
  private:
   SPI_TypeDef* spi_;
   uint32_t rcc_;
-  std::unique_ptr<Gpio> sck_ = nullptr;
-  std::unique_ptr<Gpio> miso_ = nullptr;
-  std::unique_ptr<Gpio> mosi_ = nullptr;
-  std::unique_ptr<Gpio> ss_ = nullptr;
+  std::unique_ptr<GPIO> sck_ = nullptr;
+  std::unique_ptr<GPIO> miso_ = nullptr;
+  std::unique_ptr<GPIO> mosi_ = nullptr;
+  std::unique_ptr<GPIO> ss_ = nullptr;
 };
 
 #endif  // STM32F103_CORE_SPI_H_

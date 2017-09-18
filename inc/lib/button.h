@@ -49,11 +49,11 @@ class Button {
   /**
    * @return GPIO object underlying the button
    */
-  Gpio* GetGpio() { return gpio_.get(); }
+  GPIO* GetGpio() { return gpio_.get(); }
 
  private:
   Pin pin_;
-  std::unique_ptr<Gpio> gpio_ = nullptr;
+  std::unique_ptr<GPIO> gpio_ = nullptr;
 };
 
 #endif

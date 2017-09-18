@@ -12,7 +12,7 @@
 /**
  * @brief Implements an abstraction layer for UART interface.
  */
-class Uart {
+class UART {
  public:
   /**
    * @brief Configuration for individual UART interfaces.
@@ -58,7 +58,7 @@ class Uart {
    *
    * @param config UART configuration
    */
-  explicit Uart(const Config& config);
+  explicit UART(const Config& config);
 
   /**
    * @brief Enables interrupt for UART RX.
@@ -96,8 +96,8 @@ class Uart {
  private:
   USART_TypeDef* usart_;
   uint32_t rcc_;
-  std::unique_ptr<Gpio> tx_ = nullptr;
-  std::unique_ptr<Gpio> rx_ = nullptr;
+  std::unique_ptr<GPIO> tx_ = nullptr;
+  std::unique_ptr<GPIO> rx_ = nullptr;
   uint32_t tx_periph_;
   uint32_t rx_periph_;
   IRQn irq_;

@@ -5,31 +5,31 @@
 
 #include "config.h"
 
-Spi::Spi(const Config& config) :
+SPI::SPI(const Config& config) :
     spi_(config.spi),
     rcc_(config.rcc) {
   // idiot-proof check
   assert(spi_ != nullptr);
 
   // SCK: Serial Clock
-  Gpio::Config gpio_config;
+  GPIO::Config gpio_config;
   gpio_config.speed = GPIO_Speed_50MHz;
   gpio_config.mode = GPIO_Mode_AF_PP;
   gpio_config.pin = config.sck;
-  sck_ = std::make_unique<Gpio>(gpio_config);
+  sck_ = std::make_unique<GPIO>(gpio_config);
 
   // MISO: Master Input -> Slave Output
   gpio_config.pin = config.miso;
-  miso_ = std::make_unique<Gpio>(gpio_config);
+  miso_ = std::make_unique<GPIO>(gpio_config);
 
   // MOSI: Master Output -> Slave Input
   gpio_config.pin = config.mosi;
-  mosi_ = std::make_unique<Gpio>(gpio_config);
+  mosi_ = std::make_unique<GPIO>(gpio_config);
 
   // SS: Slave Select
   gpio_config.mode = GPIO_Mode_Out_PP;
   gpio_config.pin = config.ss;
-  ss_ = std::make_unique<Gpio>(gpio_config);
+  ss_ = std::make_unique<GPIO>(gpio_config);
 
   // make sure everything is ok before proceeding
   assert(sck_ != nullptr);
@@ -40,7 +40,7 @@ Spi::Spi(const Config& config) :
   Init();
 }
 
-void Spi::Init() {
+void SPI::Init() {
   // enable the RCC we are using
   RCC_APB2PeriphClockCmd(rcc_, ENABLE);
 
@@ -62,7 +62,7 @@ void Spi::Init() {
   SPI_SSOutputCmd(spi_, DISABLE);
 }
 
-char Spi::Transfer(char byte) {
+char SPI::Transfer(char byte) {
   spi_->DR = byte;
   while (!(spi_->SR & SPI_I2S_FLAG_TXE) ||
       !(spi_->SR & SPI_I2S_FLAG_RXNE) ||
@@ -70,10 +70,10 @@ char Spi::Transfer(char byte) {
   return spi_->DR;
 }
 
-void Spi::Enable() {
+void SPI::Enable() {
   ss_->GetPort()->BRR = ss_->GetPin();
 }
 
-void Spi::Disable() {
+void SPI::Disable() {
   ss_->GetPort()->BSRR = ss_->GetPin();
 }

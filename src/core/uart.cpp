@@ -6,7 +6,7 @@
 
 #include <stm32f10x_conf.h>
 
-Uart::Uart(const Config& config) :
+UART::UART(const Config& config) :
     usart_(config.usart),
     rcc_(config.rcc),
     tx_periph_(config.tx_periph),
@@ -16,17 +16,17 @@ Uart::Uart(const Config& config) :
   assert(usart_ != nullptr);
 
   // TX
-  Gpio::Config gpio_config;
+  GPIO::Config gpio_config;
   gpio_config.speed = GPIO_Speed_50MHz;
   gpio_config.rcc = RCC_APB2Periph_AFIO;
   gpio_config.mode = GPIO_Mode_AF_PP;
   gpio_config.pin = config.tx;
-  tx_ = std::make_unique<Gpio>(gpio_config);
+  tx_ = std::make_unique<GPIO>(gpio_config);
 
   // RX
   gpio_config.mode = GPIO_Mode_IN_FLOATING;
   gpio_config.pin = config.rx;
-  rx_ = std::make_unique<Gpio>(gpio_config);
+  rx_ = std::make_unique<GPIO>(gpio_config);
 
   // make sure everything is ok before proceeding
   assert(tx_ != nullptr);
@@ -35,7 +35,7 @@ Uart::Uart(const Config& config) :
   Init(config.baud_rate);
 }
 
-void Uart::Init(uint32_t baud_rate) {
+void UART::Init(uint32_t baud_rate) {
   // enable the RCC the UART uses
   if (usart_ == USART1) {
     RCC_APB2PeriphClockCmd(rcc_, ENABLE);
@@ -57,7 +57,7 @@ void Uart::Init(uint32_t baud_rate) {
   USART_Cmd(usart_, ENABLE);
 }
 
-void Uart::EnableInterrupt() {
+void UART::EnableInterrupt() {
   // enable the interrupt
   USART_ITConfig(usart_, USART_IT_RXNE, ENABLE);
 
@@ -72,12 +72,12 @@ void Uart::EnableInterrupt() {
   NVIC_Init(&nstruct);
 }
 
-void Uart::TxByte(const uint8_t byte) {
+void UART::TxByte(const uint8_t byte) {
   while (USART_GetFlagStatus(usart_, USART_FLAG_TXE) == RESET) {}
   USART_SendData(usart_, byte);
 }
 
-void Uart::Tx(const char* data, ...) {
+void UART::Tx(const char* data, ...) {
   va_list args;
   char buffer[256];
   char* ptr = buffer;
@@ -92,7 +92,7 @@ void Uart::Tx(const char* data, ...) {
   }
 }
 
-void Uart::Tx(const std::string& str) {
+void UART::Tx(const std::string& str) {
   for (const auto& c : str) {
     TxByte(c);
   }

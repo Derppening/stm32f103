@@ -37,10 +37,10 @@ namespace {
  * @param id ID of UART we are using
  * @return @c Uart::Config object of our UART object
  */
-inline Uart::Config GetUartConfig(const uint8_t id) {
+inline UART::Config GetUartConfig(const uint8_t id) {
   assert_param(id < LIB_USE_UART);
 
-  Uart::Config uart_config;
+  UART::Config uart_config;
   switch (id) {
     default:
       assert(false);
@@ -136,7 +136,7 @@ UartDevice::UartDevice(const Config& config) :
   auto uart_config = GetUartConfig(id_);
   uart_config.baud_rate = config.baud_rate;
 
-  uart_ = std::make_unique<Uart>(uart_config);
+  uart_ = std::make_unique<UART>(uart_config);
 }
 
 void UartDevice::SetListener(Listener&& listener) {

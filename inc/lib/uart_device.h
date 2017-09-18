@@ -103,7 +103,7 @@ class UartDevice {
   static std::array<std::function<void(const uint8_t)>, 5> listeners_;
 
   uint8_t id_;
-  std::unique_ptr<Uart> uart_;
+  std::unique_ptr<UART> uart_;
 };
 
 bool UartDeviceGetInitState(const uint8_t uart_port);

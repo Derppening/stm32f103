@@ -9,7 +9,7 @@
 /**
  * @brief HAL implementation for GPIO pins.
  */
-class Gpio {
+class GPIO {
  public:
   /**
    * @brief Configuration for an individual GPIO pin.
@@ -47,7 +47,7 @@ class Gpio {
    *
    * @param config GPIO configuration settings
    */
-  explicit Gpio(const Config& config);
+  explicit GPIO(const Config& config);
 
   /**
    * @brief Sets this GPIO state based on passed in boolean.

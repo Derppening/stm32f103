@@ -31,11 +31,11 @@ inline Pin GetPinout(const uint8_t id) {
 
 Button::Button(const Config& config) :
     pin_(GetPinout(config.id)) {
-  Gpio::Config gpio_config;
+  GPIO::Config gpio_config;
   gpio_config.pin = pin_;
   gpio_config.mode = GPIO_Mode_IPU;
   gpio_config.speed = GPIO_Speed_50MHz;
-  gpio_ = std::make_unique<Gpio>(gpio_config);
+  gpio_ = std::make_unique<GPIO>(gpio_config);
 
   assert(gpio_ != nullptr);
 }
