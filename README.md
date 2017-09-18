@@ -1,5 +1,7 @@
 # HKUST Robotics Team STM32F103 SPL Library
 
+[![Build Status](https://travis-ci.org/HKUST-Robotics-Team/stm32f103.svg?branch=master)](https://travis-ci.org/HKUST-Robotics-Team/stm32f103)
+
 Seriously don't use this library, go use libOpenCM3 or HAL unless you're desperate, BUT I guarantee it's much better 
 than the spaghetti code than what the internal people use. Bonus points for being open source.
 
