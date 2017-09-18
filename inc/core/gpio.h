@@ -66,9 +66,9 @@ class Gpio {
 
   /**
    * @brief Read the current logic state of GPIO.
-   * @return Current state of GPIO, a non-zero value represents a logic high
+   * @return Current state of GPIO, where @c true represents a high value, and @c false represents a low value.
    */
-  uint8_t Read();
+  bool Read();
 
   /**
    * @return Pin number representation of currently configured pin.

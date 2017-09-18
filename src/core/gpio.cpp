@@ -41,7 +41,7 @@ void Gpio::Rcc(FunctionalState state, uint32_t rcc) {
 }
 
 void Gpio::Toggle() {
-  Set(!static_cast<bool>(Read()));
+  Set(!Read());
 }
 
 void Gpio::Set(bool state) {
@@ -52,8 +52,8 @@ void Gpio::Set(bool state) {
   }
 }
 
-uint8_t Gpio::Read() {
-  return GPIO_ReadInputDataBit(port_, GPIO_InitStructure_.GPIO_Pin);
+bool Gpio::Read() {
+  return static_cast<bool>(GPIO_ReadInputDataBit(port_, GPIO_InitStructure_.GPIO_Pin));
 }
 
 uint16_t Gpio::GetPinSource() {
