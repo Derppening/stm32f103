@@ -41,7 +41,7 @@ Button::Button(const Config& config) :
 }
 
 bool Button::Read() {
-  return !static_cast<bool>(gpio_->Read());
+  return !gpio_->Read();
 }
 
 #endif  // LIB_USE_BUTTON
