@@ -120,15 +120,15 @@ void UartDeviceTriggerListener(const uint8_t uart_port, const char data) {
 }
 
 UartDevice::UartDevice(const Config& config) :
-    id_(config.id) {
-  auto uart_config = GetUartConfig(id_);
+    device_id_(config.id) {
+  auto uart_config = GetUartConfig(device_id_);
   uart_config.baud_rate = config.baud_rate;
 
   uart_ = std::make_unique<UART>(uart_config);
 }
 
 void UartDevice::SetListener(Listener&& listener) {
-  listeners_[id_] = listener;
+  listeners_[device_id_] = listener;
 
   uart_->EnableInterrupt();
 }

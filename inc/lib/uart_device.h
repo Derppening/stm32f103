@@ -51,7 +51,7 @@ class UartDevice {
   /**
    * @brief Constructor for UART device.
    *
-   * @param config UART device configuration
+   * @param config UART device configuration. See UartDevice#Config.
    */
   explicit UartDevice(const Config& config);
 
@@ -78,7 +78,7 @@ class UartDevice {
   /**
    * @brief Transmits a string.
    *
-   * @param str String to transmit
+   * @param s String to transmit
    */
   void Tx(const std::string& s);
 
@@ -91,12 +91,27 @@ class UartDevice {
   static Listener& InvokeListener(const uint8_t uart_port) { return listeners_[uart_port]; }
 
  private:
+  /**
+   * @brief Array of function pointers to external listeners.
+   */
   static std::array<std::function<void(const uint8_t)>, 5> listeners_;
 
-  uint8_t id_;
+  /**
+   * @brief ID of currently managed device
+   */
+  uint8_t device_id_;
+  /**
+   * @brief Pointer to underlying UART object
+   */
   std::unique_ptr<UART> uart_;
 };
 
+/**
+ * @brief Bridging function between IRQ Handler and external user-defined listener.
+ *
+ * @param uart_port UART Port triggered
+ * @param data Data sent to @p uart_port
+ */
 void UartDeviceTriggerListener(const uint8_t uart_port, const char data);
 
 #endif // STM32F103_LIB_UART_DEVICE_H_
