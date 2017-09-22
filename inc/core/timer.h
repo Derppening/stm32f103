@@ -14,11 +14,6 @@
 class Timer {
  public:
   /**
-   * @brief Timer Listener type definition.
-   */
-  using Listener = std::function<void()>;
-
-  /**
    * @brief Configuration for an individual TIM.
    */
   struct Config {
@@ -53,13 +48,9 @@ class Timer {
   explicit Timer(const Config& config);
 
   /**
-   * @brief Setups interrupt handling for this timer.
-   *
-   * @note A replacement will soon be available in @c Ticks class.
-   *
-   * @param listener External listener function to trigger
+   * @brief Enables interrupt handling for this timer.
    */
-  void SetInterrupt(Listener&& listener);
+  void EnableInterrupt();
 
  protected:
   /**
@@ -71,11 +62,6 @@ class Timer {
   void Init(uint16_t prescaler, uint16_t period);
 
  private:
-  /**
-   * @brief TIM Listener.
-   */
-  Listener listener_ = nullptr;
-
   TIM_TypeDef* tim_ = nullptr;
   uint32_t rcc_;
   IRQn irq_;

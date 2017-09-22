@@ -26,10 +26,7 @@ void Timer::Init(uint16_t prescaler, uint16_t period) {
   TIM_Cmd(tim_, ENABLE);
 }
 
-void Timer::SetInterrupt(Listener&& listener) {
-  // set the listener
-  listener_ = listener;
-
+void Timer::EnableInterrupt() {
   // setup the NVIC_InitStructure
   NVIC_InitTypeDef NVIC_InitStructure;
   TIM_ClearITPendingBit(tim_, TIM_IT_Update);
