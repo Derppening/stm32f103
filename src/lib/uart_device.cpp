@@ -38,6 +38,7 @@ namespace {
  */
 inline UART::Config GetUartConfig(const uint8_t id) {
   assert_param(id < LIB_USE_UART);
+  assert(id < 7);
 
   UART::Config uart_config;
   switch (id) {
@@ -127,7 +128,7 @@ UartDevice::UartDevice(const Config& config) :
 }
 
 void UartDevice::SetListener(Listener&& listener) {
-  listeners_.at(id_) = listener;
+  listeners_[id_] = listener;
 
   uart_->EnableInterrupt();
 }

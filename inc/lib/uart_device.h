@@ -88,7 +88,7 @@ class UartDevice {
    * @param uart_port UART Port ID
    * @return External listener corresponding to the UART port
    */
-  static Listener& InvokeListener(const uint8_t uart_port) { return listeners_.at(uart_port); }
+  static Listener& InvokeListener(const uint8_t uart_port) { return listeners_[uart_port]; }
 
  private:
   static std::array<std::function<void(const uint8_t)>, 5> listeners_;
