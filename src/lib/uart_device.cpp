@@ -8,8 +8,7 @@
 #include "uart_device.h"
 #include "util.h"
 
-std::array<bool, 5> UartDevice::listener_states_ = {};
-std::array<UartDevice::Listener, 5> UartDevice::listeners_ = {nullptr};
+std::array<std::function<void(const uint8_t)>, 5> UartDevice::listeners_ = {nullptr};
 
 /**
  * @brief USART1 Handler
@@ -66,9 +65,7 @@ extern "C" void USART1_IRQHandler() {
   if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET) {
     auto data = static_cast<char>(USART_ReceiveData(USART1));
 
-    if (UartDeviceGetInitState(UartDevice::kUart1)) {
-      UartDeviceTriggerListener(UartDevice::kUart1, data);
-    }
+    UartDeviceTriggerListener(UartDevice::kUart1, data);
 
     USART_ClearITPendingBit(USART1, USART_IT_RXNE);
   }
@@ -78,9 +75,7 @@ extern "C" void USART2_IRQHandler() {
   if (USART_GetITStatus(USART2, USART_IT_RXNE) != RESET) {
     auto data = static_cast<char>(USART_ReceiveData(USART2));
 
-    if (UartDeviceGetInitState(UartDevice::kUart2)) {
-      UartDeviceTriggerListener(UartDevice::kUart2, data);
-    }
+    UartDeviceTriggerListener(UartDevice::kUart2, data);
 
     USART_ClearITPendingBit(USART2, USART_IT_RXNE);
   }
@@ -90,9 +85,7 @@ extern "C" void USART3_IRQHandler() {
   if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET) {
     auto data = static_cast<char>(USART_ReceiveData(USART3));
 
-    if (UartDeviceGetInitState(UartDevice::kUart3)) {
-      UartDeviceTriggerListener(UartDevice::kUart3, data);
-    }
+    UartDeviceTriggerListener(UartDevice::kUart3, data);
 
     USART_ClearITPendingBit(USART3, USART_IT_RXNE);
   }
@@ -102,9 +95,7 @@ extern "C" void USART4_IRQHandler() {
   if (USART_GetITStatus(UART4, USART_IT_RXNE) != RESET) {
     auto data = static_cast<char>(USART_ReceiveData(UART4));
 
-    if (UartDeviceGetInitState(UartDevice::kUart4)) {
-      UartDeviceTriggerListener(UartDevice::kUart4, data);
-    }
+    UartDeviceTriggerListener(UartDevice::kUart4, data);
 
     USART_ClearITPendingBit(UART4, USART_IT_RXNE);
   }
@@ -114,15 +105,11 @@ extern "C" void USART5_IRQHandler() {
   if (USART_GetITStatus(UART5, USART_IT_RXNE) != RESET) {
     auto data = static_cast<char>(USART_ReceiveData(UART5));
 
-    if (UartDeviceGetInitState(UartDevice::kUart5)) {
-      UartDeviceTriggerListener(UartDevice::kUart5, data);
-    }
+    UartDeviceTriggerListener(UartDevice::kUart5, data);
 
     USART_ClearITPendingBit(UART5, USART_IT_RXNE);
   }
 }
-
-bool UartDeviceGetInitState(const uint8_t uart_port) { return UartDevice::GetListenerState(uart_port); }
 
 void UartDeviceTriggerListener(const uint8_t uart_port, const char data) {
   auto listener = UartDevice::InvokeListener(uart_port);
@@ -141,7 +128,6 @@ UartDevice::UartDevice(const Config& config) :
 
 void UartDevice::SetListener(Listener&& listener) {
   listeners_.at(id_) = listener;
-  listener_states_.at(id_) = true;
 
   uart_->EnableInterrupt();
 }

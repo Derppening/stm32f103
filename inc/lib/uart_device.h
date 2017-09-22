@@ -90,23 +90,12 @@ class UartDevice {
    */
   static Listener& InvokeListener(const uint8_t uart_port) { return listeners_.at(uart_port); }
 
-  /**
-   * @brief Retrieves whether the listener is enabled
-   *
-   * @param uart_port UART Port ID
-   * @return Whether listener is active
-   */
-  static bool GetListenerState(const uint8_t uart_port) { return listener_states_.at(uart_port); }
-
  private:
-  static std::array<bool, 5> listener_states_;
   static std::array<std::function<void(const uint8_t)>, 5> listeners_;
 
   uint8_t id_;
   std::unique_ptr<UART> uart_;
 };
-
-bool UartDeviceGetInitState(const uint8_t uart_port);
 
 void UartDeviceTriggerListener(const uint8_t uart_port, const char data);
 
