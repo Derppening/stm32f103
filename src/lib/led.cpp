@@ -42,6 +42,8 @@ Led::Led(const Config& config) :
   gpio_ = std::make_unique<GPIO>(gpio_config);
 
   assert(gpio_ != nullptr);
+
+  SetEnable(false);
 }
 
 void Led::SetEnable(const bool flag) {

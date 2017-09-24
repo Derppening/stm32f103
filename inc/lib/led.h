@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <memory>
-#include <utility>
 #include <stm32f10x.h>
 
 #include "config.h"
@@ -31,6 +30,10 @@ class Led {
 
   /**
    * @brief Constructor for LED
+   *
+   * @note LED will always be in off state after constructor is called. If it isn't, your board may have a pull-up
+   * resistor, and this feature will be implemented later.
+   *
    * @param config LED configuration
    */
   explicit Led(const Config& config);
