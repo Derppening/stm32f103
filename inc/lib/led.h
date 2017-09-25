@@ -26,6 +26,10 @@ class Led {
      * @brief ID of LED.
      */
     uint8_t id;
+    /**
+     * @brief If true, LED is assumed to be active low.
+     */
+    bool polarity = false;
   };
 
   /**
@@ -61,6 +65,7 @@ class Led {
   GPIO* GetGpio() { return gpio_.get(); }
 
  private:
+  bool polarity_;
   Pin pin_;
   std::unique_ptr<GPIO> gpio_;
 };

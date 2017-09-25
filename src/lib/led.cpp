@@ -34,7 +34,8 @@ inline Pin GetPinout(const uint8_t id) {
 }  // namespace
 
 Led::Led(const Config& config) :
-    pin_(GetPinout(config.id)) {
+    pin_(GetPinout(config.id)),
+    polarity_(config.polarity){
   GPIO::Config gpio_config;
   gpio_config.pin = pin_;
   gpio_config.mode = GPIO_Mode_Out_PP;
@@ -47,7 +48,7 @@ Led::Led(const Config& config) :
 }
 
 void Led::SetEnable(const bool flag) {
-  gpio_->Set(flag);
+  gpio_->Set(polarity_ == !flag);
 }
 
 void Led::Switch() {
