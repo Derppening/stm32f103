@@ -3,7 +3,6 @@
 uint32_t System::counter_ = 0;
 std::unique_ptr<TimerDevice> System::ticker_ = nullptr;
 
-
 void System::TicksListener() {
   ++counter_;
 }
