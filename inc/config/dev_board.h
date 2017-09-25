@@ -1,0 +1,17 @@
+#ifndef STM32F103_CONFIG_DEV_BOARD_H_
+#define STM32F103_CONFIG_DEV_BOARD_H_
+
+#include "stm32f10x.h"
+#include "stm32f10x_gpio.h"
+
+#define LIB_USE_LED 1
+#define LIB_LED1_PINOUT {GPIOB, GPIO_Pin_0}
+
+#define LIB_USE_BUTTON 1
+#define LIB_BUTTON1_PINOUT {GPIOE, GPIO_Pin_6}
+
+#define LIB_USE_UART 1
+#define LIB_UART1_TX_PINOUT {GPIOA, GPIO_Pin_9}
+#define LIB_UART1_RX_PINOUT {GPIOA, GPIO_Pin_10}
+
+#endif  // STM32F103_CONFIG_DEV_BOARD_H_
