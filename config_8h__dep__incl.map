@@ -1,0 +1,12 @@
+<map id="inc/config/config.h" name="inc/config/config.h">
+<area shape="rect" id="node2" href="$button_8h.html" title="inc/lib/button.h" alt="" coords="5,80,112,107"/>
+<area shape="rect" id="node4" href="$buzzer_8h.html" title="inc/lib/buzzer.h" alt="" coords="137,80,247,107"/>
+<area shape="rect" id="node5" href="$led_8h.html" title="inc/lib/led.h" alt="" coords="272,80,360,107"/>
+<area shape="rect" id="node6" href="$uart__device_8h.html" title="inc/lib/uart_device.h" alt="" coords="384,80,523,107"/>
+<area shape="rect" id="node7" href="$spi_8cpp.html" title="src/core/spi.cpp" alt="" coords="547,80,661,107"/>
+<area shape="rect" id="node8" href="$button_8cpp.html" title="src/lib/button.cpp" alt="" coords="685,80,808,107"/>
+<area shape="rect" id="node9" href="$buzzer_8cpp.html" title="src/lib/buzzer.cpp" alt="" coords="832,80,957,107"/>
+<area shape="rect" id="node10" href="$led_8cpp.html" title="src/lib/led.cpp" alt="" coords="982,80,1084,107"/>
+<area shape="rect" id="node11" href="$uart__device_8cpp.html" title="src/lib/uart_device.cpp" alt="" coords="1109,80,1261,107"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="src/user/main.cpp" alt="" coords="123,155,249,181"/>
+</map>

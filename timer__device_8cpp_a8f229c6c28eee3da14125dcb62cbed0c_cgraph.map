@@ -1,0 +1,4 @@
+<map id="TIM1_IRQHandler" name="TIM1_IRQHandler">
+<area shape="rect" id="node2" href="$timer__device_8cpp.html#adc5eeaaa5c38bed789f24d6a7a999aa1" title="Bridging fuinction between IRQ Handler and external user&#45;defined listener. " alt="" coords="182,5,365,32"/>
+<area shape="rect" id="node3" href="$classTimerDevice.html#a585adefc8b70874af40c0c6f3c611ed8" title="Invokes the external listener. " alt="" coords="413,5,603,32"/>
+</map>
