@@ -1,6 +1,8 @@
 /**
 @mainpage HKUST Robotics Team STM32F103 SPL Library
 
+Deprecated. All efforts are migrated to <a href="https://www.github.com/Derppening/RTLib">RTLib</a>.
+
 @section About
 
 Seriously don't use this library, go use libOpenCM3 or HAL unless you're desperate, BUT I guarantee it's much better
